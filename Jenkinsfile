@@ -11,7 +11,7 @@ pipeline {
      stage('Run Docker Image') {
             steps {
                 echo 'Runing docker image'
-                sh 'docker run --rm -u -p 80:80 --name react-app my-app .'
+                sh 'docker run --rm -u root -p 80:80 --name react-app my-app .'
 		
             }
 	 }
