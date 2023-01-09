@@ -13,7 +13,7 @@ pipeline {
      stage('Run Docker Image') {
             steps {
                 echo 'Runing docker image'
-		#sh 'sudo docker rm -vf $(sudo docker ps -aq) &>/dev/null'
+		
 	
                 sh 'sudo docker run -d -p 80:80 --name userprofile applesama/p3project1.0 .'
 		
