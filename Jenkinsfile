@@ -15,7 +15,7 @@ pipeline {
                 echo 'Runing docker image'
 		
 	
-                sh 'sudo docker run -d -p 80:80 --name userprofile applesama/p3project1.0 .'
+                sh 'sudo docker run -p 80:80 --name userprofile applesama/p3project1.0 .'
 		
             }
 	 }
