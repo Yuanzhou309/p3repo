@@ -4,7 +4,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 echo 'Building docker image'	
-                sh 'sudo docker build -t p3project1.0 .'
+                sh 'sudo docker build -t applesama/p3project1.0 .'
 		
             }
         }
@@ -12,7 +12,7 @@ pipeline {
      stage('Run Docker Image') {
             steps {
                 echo 'Runing docker image'
-                sh 'sudo docker run -d --rm -p 80:80 --name userprofile p3project1.0 .'
+                sh 'sudo docker run -d -p 80:80 --name userprofile applesama/p3project1.0 .'
 		
             }
 	 }
@@ -32,7 +32,7 @@ pipeline {
                     // some block
 		    echo 'Dockerhub Login'
                     sh 'sudo docker login -u $dockerUsr -p $dockerPwd'
-		    sh 'sudo docker push p3project1.0'
+		    sh 'sudo docker push applesama/p3project1.0'
                 }
             }
 
