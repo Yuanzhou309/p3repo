@@ -26,16 +26,6 @@ pipeline {
 	    
 	    
 	    
-      stage('Upload Docker Image') {
-	    steps {
-                withCredentials([usernamePassword(credentialsId: 'applesama_dockerhub', passwordVariable: 'dockerPwd', usernameVariable: 'dockerUsr')]) {
-                    // some block
-		    echo 'Dockerhub Login'
-                    sh 'sudo docker login -u $dockerUsr -p $dockerPwd'
-		    sh 'sudo docker push applesama/p3project1.0'
-                }
-            }
-
 
 
 
