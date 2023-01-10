@@ -2,9 +2,10 @@ pipeline {
     agent any
 	
 	parameters {
-  		booleanParam defaultValue: true, description: 'true to uploadimg', name: 'UploadImg'
+
 		booleanParam defaultValue: true, description: 'true to build img', name: 'BuildImg'
 		booleanParam defaultValue: true, description: 'true to run img', name: 'RunImg'
+		booleanParam defaultValue: true, description: 'true to uploadimg', name: 'UploadImg'
 		
 		
 		string defaultValue: '1.0', name: 'ImgTag', trim: true
