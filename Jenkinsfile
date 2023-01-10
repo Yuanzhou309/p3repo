@@ -5,10 +5,11 @@ pipeline {
   		booleanParam defaultValue: true, description: 'true to uploadimg', name: 'Uploadimg'
 		}
 	
-	enviroment {
-		ImgName="applesama/p3project1.0"
-		ImgTag="${params.ImgTag}"
-	}
+	environment {
+	  ImgName = "applesama/p3project1.0"
+	  ImgTag = "{params.ImgTag}"
+		}
+
 	
 	
     stages {
