@@ -3,6 +3,9 @@ pipeline {
     stages {
         stage('Build Docker Image') {
             steps {
+		parameters {
+  		booleanParam defaultValue: true, description: 'true to uploadimg', name: 'Uploadimg'
+			}
                 echo 'Building docker image'	
                 sh 'sudo docker build -t my-app .'
 		
@@ -23,9 +26,20 @@ pipeline {
 
 
 
+	cleanWs
 
-
-
+    
+	post {
+  		failure {
+   		 // One or more steps need to be included within each condition's block.
+ 	 	}
+	} 
+	    
+	post {
+  		always {
+   		 // One or more steps need to be included within each condition's block.
+ 	 	}
+	}
 
 
 
