@@ -63,12 +63,12 @@ pipeline {
             }
 
 	} 
-	
-    }
-      stage('Upload to AWS') {
+         stage('Upload to AWS') {
+	      
 	   when {
 		 expression {return params.Uploadtos3}
 	        }
+	      
               steps {
                   withAWS(region:'ap-southeast-2',credentials:'kevin-aws-jenkins-cred') {
                   sh 'echo "Uploading content with AWS creds"'
@@ -76,6 +76,17 @@ pipeline {
                   }
               }
          }
+	
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+    }
+
 	
 	
 	
