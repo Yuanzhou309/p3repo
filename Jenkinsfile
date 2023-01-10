@@ -2,7 +2,7 @@ pipeline {
     agent any
 	
 	parameters {
-  		booleanParam defaultValue: true, description: 'true to uploadimg', name: 'Uploadimg'
+  		booleanParam defaultValue: true, description: 'true to uploadimg', name: 'UploadImg'
 		string defaultValue: '1.0', name: 'ImgTag', trim: true
 		}
 	
@@ -35,7 +35,7 @@ pipeline {
      stage('Upload Docker Image') {
 
 	     when {
-		     expression {return params.blUploadimg}
+		     expression {return params.blUploadImg}
 	     }
 	     
 	     
