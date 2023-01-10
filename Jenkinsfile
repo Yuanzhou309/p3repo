@@ -5,9 +5,14 @@ pipeline {
   		booleanParam defaultValue: true, description: 'true to uploadimg', name: 'Uploadimg'
 		}
 	
+	enviroment{
+		ImgName="applesama/p3project1.0"
+		ImgTag="${params.ImgTag}"
+	}
 	
 	
     stages {
+	    
         stage('Build Docker Image') {
             steps {
 
@@ -24,6 +29,29 @@ pipeline {
             }
 	 }
     }
+	
+	stage('Upload Docker Image') {
+		when {
+			expression {return paramas.blUploadimg}
+		
+		}
+		
+		
+    steps {
+            withCredentials([usernamePassword(credentialsId: 'applesama_dockerhub', passwordVariable: 'dockerPwd', usernameVariable: 'dockerUsr')]) {
+                // some block
+	    echo 'Dockerhub Login'
+                sh 'sudo docker login -u $dockerUsr -p $dockerPwd'
+	    sh 'sudo docker push applesama/p3project1.0'
+            }
+        }
+   }
+	
+	
+	
+	
+	
+	
 	
 	
 post {
