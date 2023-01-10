@@ -73,7 +73,7 @@ pipeline {
 		sh 'aws s3 sync . s3://mysamplebucket309'
                   }
               }
-         }
+       
 	
 	    
 	    
