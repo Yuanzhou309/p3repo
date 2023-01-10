@@ -35,7 +35,7 @@ pipeline {
      stage('Upload Docker Image') {
 
 	     when {
-		     expression {return params.blUploadImg}
+		     expression {params.blUploadImg = true}
 	     }
 	     
 	     
