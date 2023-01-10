@@ -32,37 +32,6 @@ pipeline {
 
 
 
-
-    
-	post {
-  		failure {
-			stage('1') {
-          		  steps {
-
-		
-            }
-        }
-			
-   		 // One or more steps need to be included within each condition's block.
- 	 	}
-	} 
-	    
-	post {
-  		always {
-   		 	stage('2') {
-            steps {
-
-  			cleanWs()
-            }
-        }
-			
-			// One or more steps need to be included within each condition's block.
- 	 	}
-	}
-
-
-
-
 	
 
     }
