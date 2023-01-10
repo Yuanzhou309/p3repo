@@ -25,7 +25,11 @@ pipeline {
 	 }
       
 
-
+post {
+  always {
+    sh 'sudo docker stop nodejs'
+  }
+}
 
 
 
