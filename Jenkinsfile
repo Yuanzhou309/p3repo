@@ -42,7 +42,7 @@ pipeline {
                     
 		    echo 'Dockerhub Login'
                     sh 'sudo docker login -u $dockerUsr -p $dockerPwd'
-		    sh 'sudo docker push applesama/p3project1.0'
+		    sh 'sudo docker push $ImgName:$ImgTag'
                 }
             }
 
