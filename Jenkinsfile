@@ -43,12 +43,7 @@ post {
    sh'docker stop nodejs'
   }
 }
-   success {
-     echo 'I succeeded!'
-     }
-   failure {
-     echo 'I failed :('
-     }
+
 	
 	
 }
