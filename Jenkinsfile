@@ -70,9 +70,7 @@ pipeline {
 	        }
 	      
               steps {
-                  withAWS(region:'ap-southeast-2',credentials:'kevin-aws-jenkins-cred') {
-                  sh 'echo "Uploading content with AWS creds"'
-                      s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'*', bucket:'mysamplebucket309')
+		sh 'aws s3 sync . s3://mysamplebucket309'
                   }
               }
          }
