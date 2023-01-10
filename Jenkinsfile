@@ -34,6 +34,10 @@ pipeline {
 
      stage('Upload Docker Image') {
 
+	     when {
+		     expression {return params.blUploadimg} is true
+	     }
+	     
 	     
 	    steps {
                 withCredentials([usernamePassword(credentialsId: 'applesama_dockerhub', passwordVariable: 'dockerPwd', usernameVariable: 'dockerUsr')]) {
