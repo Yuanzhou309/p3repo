@@ -7,7 +7,7 @@ pipeline {
 		}
 	
 	environment {
-	  ImgName = "applesama/p3project1.0"
+	  ImgName = "applesama/p3project"
 	  ImgTag = "${params.ImgTag}"
 		}
 
@@ -35,7 +35,7 @@ pipeline {
      stage('Upload Docker Image') {
 
 	     when {
-		     expression {params.blUploadImg = true}
+		     expression {params.blUploadImg == true}
 	     }
 	     
 	     
