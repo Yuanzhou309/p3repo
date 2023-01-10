@@ -3,6 +3,7 @@ pipeline {
 	
 	parameters {
   		booleanParam defaultValue: true, description: 'true to uploadimg', name: 'Uploadimg'
+		string defaultValue: '1.0', name: 'ImgTag', trim: true
 		}
 	
 	environment {
