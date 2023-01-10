@@ -6,7 +6,7 @@ pipeline {
 		booleanParam defaultValue: true, description: 'true to build img', name: 'BuildImg'
 		booleanParam defaultValue: true, description: 'true to run img', name: 'RunImg'
 		booleanParam defaultValue: true, description: 'true to uploadimg', name: 'UploadImg'
-		
+		booleanParam defaultValue: true, description: 'true to uploadimg', name: 'Uploadtos3'
 		
 		string defaultValue: '1.0', name: 'ImgTag', trim: true
 		}
@@ -65,7 +65,17 @@ pipeline {
 	} 
 	
     }
-
+      stage('Upload to AWS') {
+	   when {
+		 expression {return params.Uploadtos3}
+	        }
+              steps {
+                  withAWS(region:'ap-southeast-2',credentials:'kevin-aws-jenkins-cred') {
+                  sh 'echo "Uploading content with AWS creds"'
+                      s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'index.html', bucket:'mysamplebucket309')
+                  }
+              }
+         }
 	
 	
 	
@@ -76,6 +86,7 @@ pipeline {
 	
 post {
   always {
+	  cleanWs()
    sh'docker stop nodejs'
    sh 'sudo docker rm -vf $(sudo docker ps -aq) &>/dev/null'
   }
