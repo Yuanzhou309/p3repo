@@ -31,15 +31,17 @@ pipeline {
 
 
 
-	cleanWs()
+
 
     
 	post {
   		failure {
-			steps {
-           
+			stage('1') {
+          		  steps {
+
 		
             }
+        }
 			
    		 // One or more steps need to be included within each condition's block.
  	 	}
@@ -47,10 +49,12 @@ pipeline {
 	    
 	post {
   		always {
-   		 	steps {
-           
-		
+   		 	stage('2') {
+            steps {
+
+  			cleanWs()
             }
+        }
 			
 			// One or more steps need to be included within each condition's block.
  	 	}
