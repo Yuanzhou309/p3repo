@@ -62,12 +62,6 @@ pipeline {
 	
 	
 	
-	
-post {
-  always {
-   sh'docker stop nodejs'
-  }
-}
 
 	
 	
