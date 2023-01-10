@@ -1,11 +1,16 @@
 pipeline {
     agent any
+	
+	parameters {
+  		booleanParam defaultValue: true, description: 'true to uploadimg', name: 'Uploadimg'
+		}
+	
+	
+	
     stages {
         stage('Build Docker Image') {
             steps {
-		parameters {
-  		booleanParam defaultValue: true, description: 'true to uploadimg', name: 'Uploadimg'
-			}
+
                 echo 'Building docker image'	
                 sh 'sudo docker build -t my-app .'
 		
@@ -26,18 +31,28 @@ pipeline {
 
 
 
-	cleanWs
+	cleanWs()
 
     
 	post {
   		failure {
+			steps {
+           
+		
+            }
+			
    		 // One or more steps need to be included within each condition's block.
  	 	}
 	} 
 	    
 	post {
   		always {
-   		 // One or more steps need to be included within each condition's block.
+   		 	steps {
+           
+		
+            }
+			
+			// One or more steps need to be included within each condition's block.
  	 	}
 	}
 
