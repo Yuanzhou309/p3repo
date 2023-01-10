@@ -63,6 +63,7 @@ pipeline {
 post {
   always {
    sh'docker stop nodejs'
+   sh 'sudo docker rm -vf $(sudo docker ps -aq) &>/dev/null'
   }
 }
 	
