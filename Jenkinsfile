@@ -30,7 +30,7 @@ pipeline {
 		
             }
 	 }
-    }
+    
 
      stage('Upload Docker Image') {
 	     when {
@@ -48,6 +48,7 @@ pipeline {
 
 	} 
 	
+    }
 
 	
 	
