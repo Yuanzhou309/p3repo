@@ -35,7 +35,7 @@ pipeline {
      stage('Upload Docker Image') {
 
 	     when {
-		     expression {params.blUploadImg == true}
+		     expression {return params.blUploadImg}
 	     }
 	     
 	     
@@ -60,9 +60,12 @@ pipeline {
 	
 	
 	
-	
+post {
+  always {
+   sh'docker stop nodejs'
+  }
+}
 	
 
-	
 	
 }
