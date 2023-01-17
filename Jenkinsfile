@@ -95,9 +95,7 @@ pipeline {
 	
 post {
   always {
-	  cleanWs()
-   sh'docker stop nodejs'
-   sh 'docker rm -vf $(sudo docker ps -aq) &>/dev/null'
+	
   }
 }
 	
