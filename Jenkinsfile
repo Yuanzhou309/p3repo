@@ -92,12 +92,7 @@ pipeline {
 	
 	
 	
-	
-post {
-  always {
-	
-  }
-}
+
 	
 
 	
