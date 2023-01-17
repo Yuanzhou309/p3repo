@@ -72,7 +72,8 @@ pipeline {
               steps {
 		sh'pwd'
 		sh'ls -la'
-
+	 	sh'apt update'
+		sh'apt install awscli'
 		sh 'aws s3 sync . s3://mysamplebucket309'
                   }
               }
