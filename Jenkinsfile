@@ -74,7 +74,7 @@ pipeline {
 		sh'curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"'
 		sh'unzip awscliv2.zip'
 	 	sh'./aws/install -i /usr/local/aws-cli -b /usr/local/bin'
-		sh'cd p3project'
+		sh'cd -'
 		sh 'aws s3 sync . s3://mysamplebucket309'
                   }
               }
