@@ -20,14 +20,13 @@ pipeline {
 	
     stages {
 	    
-        stage('Build Docker Image & mkwork dir') {
+        stage('Build Docker Image') {
 	      when {
 		     expression {return params.BuildImg}
 	     }
             steps {
 
-                echo 'Building docker image'	
-		sh 'mkdir Documents && cd Documents'
+                echo 'Building docker image'
                 sh 'docker build -t $ImgName:$ImgTag .'
 		
             }
@@ -71,13 +70,10 @@ pipeline {
 	        }
 	      
               steps {
-		sh 'pwd'
-		sh 'cd ..'
-		sh'pwd'
 		sh'curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"'
 		sh'unzip awscliv2.zip'
 	 	sh'./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update'
-		sh'cd -'
+
 		sh 'aws s3 sync . s3://mysamplebucket309'
                   }
               }
