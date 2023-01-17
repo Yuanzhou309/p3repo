@@ -27,7 +27,7 @@ pipeline {
             steps {
 
                 echo 'Building docker image'	
-                sh 'sudo docker build -t $ImgName:$ImgTag .'
+                sh 'docker build -t $ImgName:$ImgTag .'
 		
             }
         }
@@ -40,7 +40,7 @@ pipeline {
 	     }
             steps {
                 echo 'Runing docker image'
-                 sh 'sudo docker run --rm -d -p 80:80 --name nodejs $ImgName:$ImgTag'
+                 sh 'docker run --rm -d -p 80:80 --name nodejs $ImgName:$ImgTag'
 		
             }
 	 }
@@ -57,8 +57,8 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'applesama_dockerhub', passwordVariable: 'dockerPwd', usernameVariable: 'dockerUsr')]) {
                     
 		    echo 'Dockerhub Login'
-                    sh 'sudo docker login -u $dockerUsr -p $dockerPwd'
-		    sh 'sudo docker push $ImgName:$ImgTag'
+                    sh 'docker login -u $dockerUsr -p $dockerPwd'
+		    sh 'docker push $ImgName:$ImgTag'
                 }
             }
 
@@ -97,7 +97,7 @@ post {
   always {
 	  cleanWs()
    sh'docker stop nodejs'
-   sh 'sudo docker rm -vf $(sudo docker ps -aq) &>/dev/null'
+   sh 'docker rm -vf $(sudo docker ps -aq) &>/dev/null'
   }
 }
 	
