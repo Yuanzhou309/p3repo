@@ -72,12 +72,17 @@ pipeline {
 	      
 	  steps{
 	    
-	withCredentials(
-	[[$class: 'AmazonWebServicesCredentialsBinding', 
-        accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
-        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY',
-        credentialsId: '{AWS_ACCOUNT}'
-	 ]])
+		credentials (
+  		  credentialType: 'com.cloudbees.jenkins.plugins.awscredentials.AWSCredentialsImpl', 
+  		  defaultValue: 'jenkins-deploy-proj', 
+  		  description: '''
+   		 My description
+   		 ''', 
+    		name: 'AWS_ACCOUNT'
+		)
+		  
+		  
+		  
 		  
 		  {
 		      
