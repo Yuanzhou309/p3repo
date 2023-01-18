@@ -70,7 +70,10 @@ pipeline {
 	        }
 	      
               steps {
+		 withCredentials([<object of type com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding>]) {    
+		      
 		sh 'aws s3 sync . s3://mysamplebucket309'
+		     }
                   }
               }
        
