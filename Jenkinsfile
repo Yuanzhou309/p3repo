@@ -14,6 +14,7 @@ pipeline {
 	environment {
 	 	ImgName = "applesama/p3project"
 	  	ImgTag = "${params.ImgTag}"
+		AWS_ACCOUNT = yuan_zhou309
 			}
 
 	
@@ -69,8 +70,15 @@ pipeline {
 		 expression {return params.Uploadtos3}
 	        }
 	      
-              steps {
-		 withCredentials([<com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding>]) {    
+	  steps{
+	    
+	withCredentials(
+	[[$class: 'AmazonWebServicesCredentialsBinding', 
+        accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
+        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY',
+        credentialsId: '${AWS_ACCOUNT}' ]])
+		  
+		  {
 		      
 		sh 'aws s3 sync . s3://mysamplebucket309'
 		     }
