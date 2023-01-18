@@ -14,7 +14,7 @@ pipeline {
 	environment {
 	 	ImgName = "applesama/p3project"
 	  	ImgTag = "${params.ImgTag}"
-		AWS_ACCOUNT = "AmazonWebServicesCredentials"
+		
 			}
 
 	
@@ -76,7 +76,8 @@ pipeline {
 	[[$class: 'AmazonWebServicesCredentialsBinding', 
         accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY',
-        credentialsId: '${AWS_ACCOUNT}' ]])
+        credentialsId: '{AmazonWebServicesCredentials}'
+	 ]])
 		  
 		  {
 		      
