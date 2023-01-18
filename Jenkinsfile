@@ -14,7 +14,7 @@ pipeline {
 	environment {
 	 	ImgName = "applesama/p3project"
 	  	ImgTag = "${params.ImgTag}"
-		AWS_ACCOUNT = "yuan_zhou309"
+		AWS_ACCOUNT = "AmazonWebServicesCredentials"
 			}
 
 	
