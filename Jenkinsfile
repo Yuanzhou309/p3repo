@@ -82,7 +82,7 @@ withCredentials([[
 		  
 		  
 		  {
-		sh "aws sts get-caller-identity" 
+	
 		sh 'aws s3 sync . s3://mysamplebucket309'
 		     }
                   }
