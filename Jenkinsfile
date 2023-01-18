@@ -72,20 +72,17 @@ pipeline {
 	      
 	  steps{
 	    
-		credentials (
-  		  credentialType: 'com.cloudbees.jenkins.plugins.awscredentials.AWSCredentialsImpl', 
-  		  defaultValue: 'jenkins-deploy-proj', 
-  		  description: '''
-   		 My description
-   		 ''', 
-    		name: 'AWS_ACCOUNT'
-		)
-		  
+withCredentials([[
+    $class: 'AmazonWebServicesCredentialsBinding',
+    credentialsId: "AWS_ACCOUNT",
+    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+]])
 		  
 		  
 		  
 		  {
-		      
+		sh "aws sts get-caller-identity" 
 		sh 'aws s3 sync . s3://mysamplebucket309'
 		     }
                   }
