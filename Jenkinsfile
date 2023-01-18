@@ -109,7 +109,8 @@ post {
   always {
 	  cleanWs()
    sh'docker stop nodejs'
-   sh 'docker rm -vf p3project &>/dev/null'
+   sh 'docker rm -vf $(docker ps -aq) &>/dev/null'
+
   }
 }
 	
