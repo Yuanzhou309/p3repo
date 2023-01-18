@@ -111,6 +111,8 @@ post {
   always {
 	  cleanWs()
    sh'docker stop nodejs'
+   sh 'docker rmi -f $(docker images -aq) &>/dev/null'
+   
 
   }
 }
