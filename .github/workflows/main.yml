@@ -8,7 +8,7 @@ on:
 env:
   AWS_REGION: ap-southeast-2
   EKS_CLUSTER_NAME: my-eks-cluster
-  AWS_1: 1
+
 
 jobs:
   create-eks-cluster:
