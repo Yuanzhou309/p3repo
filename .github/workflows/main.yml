@@ -13,50 +13,22 @@ jobs:
     runs-on: unbuntu-latest
     steps:
       - uses: actions/checkout@v2
-  Deployprod:
-    name: Deployment
+  DeployUAT:
+    name: DeployUAT
     if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    environment:
+      name: UAT
+    steps:
+      - name: deploying
+        run: echo deploying
+  DeployProd:
+    name: DeployProd
+    if: github.event_name == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment:
       name: Prod
     steps:
-    - name： Deploy
-      run: echo deploying
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-      
- 
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
-      with:
-        terraform_version: 1.0.8
-    - name: Terraform Init uat
-      if: github.event.inputs.workspace == 'uat'
-      run: terraform init -backend-config="workspace=uat"
-    - name: Terraform Init prod
-      if: github.event.inputs.workspace == 'production'
-      run: terraform init -backend-config="workspace=production"
-      
-    - name: Terraform Apply
-      if: github.event.inputs.destroy != 'true'
-      run: echo terraform apply !!!!!!!!!!!!!!!!!!!!!!!!!
-    - name: Terraform Destroy
-      if: github.event.inputs.destroy == 'true'
-      run: echo destroy !!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-      
-      
-      
-      
-      
-      
-      
-      
-      
-    env:
-      TF_INPUT: 0
-      TF_REATTACH_PROVIDERS: 1
-
-    outputs:
-      destroy: ${{ github.event.inputs.destroy }}
+      - name: deploying
+        run: echo deploying
+   
