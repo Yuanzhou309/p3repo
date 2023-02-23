@@ -15,12 +15,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Terraform Init
-      run: terraform init
+      run: echo terraform init
     - name: Terraform Apply or Destroy
       if: ${{ !steps.check_params.outputs.destroy }}
-      run: terraform apply -var-file=${{ matrix.workspace }}.tfvars
+      run: echo terraform apply
       else:
-        run: terraform destroy -var-file=${{ matrix.workspace }}.tfvars
+        run: echo terrafrom destory
 
     outputs:
       destroy: ${{ github.event.inputs.destroy }}
