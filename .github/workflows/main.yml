@@ -1,17 +1,27 @@
 name: My CI/CD Pipeline
 
 
-
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+  
 jobs:
-  deploy:
+  Build:
+    runs-on: unbuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+  Deployprod:
+    name: Deployment
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     environment:
       name: Prod
- 
- 
- 
- 
+    steps:
+    - name： Deploy
+      run: echo deploying
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
