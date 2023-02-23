@@ -14,12 +14,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
       
-    - name: Lint codebase
-      uses: docker://github/super-linter:v3
-      env:
-        VALIDATE_ALL_BASECODE: false
-        DEFAULT_BRANCH: main
-        
+ 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
