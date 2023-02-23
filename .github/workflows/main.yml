@@ -1,47 +1,26 @@
-name: Create EKS Cluster
+name: Terraform Deployment
 
 on:
   push:
-    branches:
-      - main
-
-env:
-  AWS_REGION: ap-southeast-2
-  EKS_CLUSTER_NAME: my-eks-cluster
-
+    branches: [main]
 
 jobs:
-  create-eks-cluster:
+  deploy:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        workspace: [uat, prod]
+
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v2
+    - name: Terraform Init
+      run: terraform init
+    - name: Terraform Apply or Destroy
+      if: ${{ !steps.check_params.outputs.destroy }}
+      run: terraform apply -var-file=${{ matrix.workspace }}.tfvars
+      else:
+        run: terraform destroy -var-file=${{ matrix.workspace }}.tfvars
 
-    - name: Install AWS CLI
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y awscli
-
-    - name: Install eksctl
-      run: |
-        curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
-        sudo mv /tmp/eksctl /usr/local/bin
-
-    - name: Create EKS Cluster
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_DEFAULT_REGION: ${{ env.AWS_REGION }}
-      run: |
-        eksctl create cluster \
-          --name ${{ env.EKS_CLUSTER_NAME }} \
-          --region ${{ env.AWS_REGION }} \
-          --nodegroup-name standard-workers \
-          --node-type t3.medium \
-          --nodes 3 \
-          --nodes-min 1 \
-          --nodes-max 4 \
-          --managed
-          
-          
-          
+    outputs:
+      destroy: ${{ github.event.inputs.destroy }}
