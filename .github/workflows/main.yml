@@ -1,4 +1,4 @@
-name: Terraform Deployment
+name: My CI/CD Pipeline
 
 on:
   push:
@@ -7,20 +7,28 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
-        workspace: [uat, prod]
-
+        workspace: ["uat", "production"]
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 1.0.8
     - name: Terraform Init
-      run: echo terraform init
-    - name: Terraform Apply or Destroy
-      if: ${{ !steps.check_params.outputs.destroy }}
-      run: echo terraform apply
-      else:
-        run: echo terrafrom destory
+      run: terraform init -backend-config="workspace=${{ matrix.workspace }}"
+    - name: Terraform Apply
+      if: github.event.inputs.destroy != 'true'
+      run: terraform apply -var-file=${{ matrix.workspace }}.tfvars
+    - name: Terraform Destroy
+      if: github.event.inputs.destroy == 'true'
+      run: terraform destroy -var-file=${{ matrix.workspace }}.tfvars
+
+    env:
+      TF_INPUT: 0
+      TF_REATTACH_PROVIDERS: 1
 
     outputs:
       destroy: ${{ github.event.inputs.destroy }}
