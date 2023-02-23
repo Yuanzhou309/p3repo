@@ -24,6 +24,26 @@ jobs:
       if: github.event.inputs.workspace == 'production'
       run: terraform init -backend-config="workspace=production"
       
+    - name: Prompt user for input
+      run: |
+          echo "Do you want to continue?"
+          read -r answer
+          echo "You answered: $answer"
+    - name: Check user input
+      run: |
+          if [[ "$answer" == "yes" ]]; then
+            echo "Continuing the workflow ..."
+          else
+            echo "Stopping the workflow ..."
+            exit 1
+          fi
+    - name: Do something
+      run: echo "Doing something ..."
+      
+      
+      
+      
+      
     - name: Print input value
       run: echo "The 'my_boolean_input' value is ${{ github.event.inputs.my_boolean_input }}"
     - name: Do something if input is true
