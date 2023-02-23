@@ -7,9 +7,11 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        workspace: ["uat", "production"]
+ 
+ 
+ 
+ 
+ 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
