@@ -13,6 +13,13 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+      
+    - name: Lint codebase
+      uses: docker://github/super-linter:v3
+      env:
+        VALIDATE_ALL_BASECODE: false
+        DEFAULT_BRANCH: main
+        
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
@@ -24,38 +31,18 @@ jobs:
       if: github.event.inputs.workspace == 'production'
       run: terraform init -backend-config="workspace=production"
       
-    - name: Prompt user for input
-      run: |
-          echo "Do you want to continue?"
-          read -r answer
-          echo "You answered: $answer"
-    - name: Check user input
-      run: |
-          if [[ "$answer" == "yes" ]]; then
-            echo "Continuing the workflow ..."
-          else
-            echo "Stopping the workflow ..."
-            exit 1
-          fi
-    - name: Do something
-      run: echo "Doing something ..."
-      
-      
-      
-      
-      
-    - name: Print input value
-      run: echo "The 'my_boolean_input' value is ${{ github.event.inputs.my_boolean_input }}"
-    - name: Do something if input is true
-      if: github.event.inputs.my_boolean_input == 'true'
-      run: echo "The 'my_boolean_input' is true, doing something ..."
-      
     - name: Terraform Apply
       if: github.event.inputs.destroy != 'true'
       run: echo terraform apply !!!!!!!!!!!!!!!!!!!!!!!!!
     - name: Terraform Destroy
       if: github.event.inputs.destroy == 'true'
       run: echo destroy !!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+      
+      
+      
+      
+      
       
     env:
       TF_INPUT: 0
