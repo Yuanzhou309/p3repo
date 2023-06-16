@@ -1,37 +1,22 @@
-name: My CI/CD Pipeline
+name: My Workflow
 
+on: [push]
 
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-  workflow_dispatch:
-  
 jobs:
-  Build:
-    runs-on: unbuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: compile
-        run: echo build
-      
-  DeployUAT:
-    name: DeployUAT
-    if: github.event_name == 'pull_request'
+  build:
     runs-on: ubuntu-latest
-    environment:
-      name: UAT
+
     steps:
-      - name: deploying
-        run: echo deploying
-  DeployProd:
-    name: DeployProd
-    if: github.event_name == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    environment:
-      name: Prod
-    steps:
-      - name: deploying
-        run: echo deploying
-   
+      - name: Pause Workflow
+        id: pause
+        uses: "actions/github-script@v5"
+        with:
+          script: echo "Workflow paused. Waiting for approval."
+        
+      - name: Continue Workflow
+        if: github.event_name == 'workflow_dispatch' || steps.pause.outputs.approved == 'true'
+        run: echo "Workflow continued."
+
+      - name: Next Step
+        run: echo "Perform the next step after resuming."
+
